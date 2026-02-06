@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Parameters</title>
+
+    <style> * 
+    { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+            body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .accordion {
+        margin-bottom: 10px;
+    }
+
+    /* Input Section Styles */
+.input-section {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.input-field {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+    .accordion-header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s;
+    }
+
+    .accordion-header:hover {
+        background-color: #0056b3;
+    }
+
+    .accordion-header.active {
+        background-color: #0056b3;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .accordion-icon {
+        transition: transform 0.3s;
+    }
+
+    .accordion-header.active .accordion-icon {
+        transform: rotate(180deg);
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: #f9f9f9;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .accordion-content.active {
+        max-height: 1000px;
+        border: 1px solid #007bff;
+        border-top: none;
+    }
+
+    .accordion-body {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #5d9b12;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #318418ea;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+    }
+
+    .success {
+        color: green;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+    }
+
+    .offline-indicator {
+        background-color: #ff9800;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        display: none;
+    }
+
+    .offline-indicator.show {
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            margin: 10px;
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .accordion-header {
+            font-size: 14px;
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            margin: 5px;
+            padding: 10px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        input, button {
+            font-size: 14px;
+        }
+    }
+
+    .sync-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+    }
+
+    .sync-btn {
+        background-color: #ee3333;
+        margin-bottom: 10px;
+    }
+
+    .sync-btn:hover {
+        background-color: #ef0808;
+    }
+
+    .sync-btn:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+    }
+
+    .sync-status {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .filter-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .filter-btn.active:hover {
+        background-color: #0056b3;
+    }
+
+    .data-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .data-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+        position: relative;
+    }
+
+    .data-item.pending {
+        border-left-color: #ff9800;
+        background-color: #fff3e0;
+    }
+
+    .data-item.synced {
+        border-left-color: #28a745;
+    }
+
+    .data-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .data-item-name {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .status-badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .status-badge.synced {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-badge.pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .data-item-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .data-field {
+        font-size: 14px;
+    }
+
+    .data-field strong {
+        color: #555;
+    }
+
+    .data-item-footer {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+        font-size: 12px;
+        color: #888;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+    }
+
+    @media (max-width: 768px) {
+        .filter-buttons {
+            flex-direction: column;
+        }
+        
+        .filter-btn {
+            width: 100%;
+        }
+        
+        .data-item-details {
+            grid-template-columns: 1fr;
+        }
+        
+        .data-item-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    }}
+    </style>
+</head>
+<body>
+    <div class="offline-indicator" id="offlineIndicator">You are currently offline. Data will be saved locally.</div>
+ <div class="container">
+    <h2>UF Membrane Area Entry</h2>
+    
+        <div class="input-section">
+            <div class="input-group">
+                <label for="date-input">Date:</label>
+                <input type="date" id="date-input" class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="time-input">Time:</label>
+                <input type="time" id="time-input" class="input-field">
+            </div>
+        </div>
+
+    <form id="ufForm">
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(0)">
+                <span>UF1</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="uf1_area1">MembraneArea1:</label>
+                        <input type="number" id="uf1_area1" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf1_area2">MembraneArea2:</label>
+                        <input type="number" id="uf1_area2" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf1_area3">MembraneArea3:</label>
+                        <input type="number" id="uf1_area3" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf1_area4">MembraneArea4:</label>
+                        <input type="number" id="uf1_area4" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf1_area5">MembraneArea5:</label>
+                        <input type="number" id="uf1_area5" step="0.01" placeholder="psi">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(1)">
+                <span>UF2</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="uf2_area1">MembraneArea1:</label>
+                        <input type="number" id="uf2_area1" step="0.01" placeholder="gfd">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf2_area2">MembraneArea2:</label>
+                        <input type="number" id="uf2_area2" step="0.01" placeholder="gfd">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf2_area3">MembraneArea3:</label>
+                        <input type="number" id="uf2_area3" step="0.01" placeholder="gfd">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf2_area4">MembraneArea4:</label>
+                        <input type="number" id="uf2_area4" step="0.01" placeholder="gfd">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf2_area5">MembraneArea5:</label>
+                        <input type="number" id="uf2_area5" step="0.01" placeholder="gfd">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(2)">
+                <span>UF3</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="uf3_area1">MembraneArea1:</label>
+                        <input type="number" id="uf3_area1" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf3_area2">MembraneArea2:</label>
+                        <input type="number" id="uf3_area2" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf3_area3">MembraneArea3:</label>
+                        <input type="number" id="uf3_area3" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf3_area4">MembraneArea4:</label>
+                        <input type="number" id="uf3_area4" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf3_area5">MembraneArea5:</label>
+                        <input type="number" id="uf3_area5" step="0.01" placeholder="ppm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(3)">
+                <span>UF4</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="uf4_area1">MembraneArea1:</label>
+                        <input type="number" id="uf4_area1" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf4_area2">MembraneArea2:</label>
+                        <input type="number" id="uf4_area2" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf4_area3">MembraneArea3:</label>
+                        <input type="number" id="uf4_area3" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf4_area4">MembraneArea4:</label>
+                        <input type="number" id="uf4_area4" step="0.01" placeholder="psi">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf4_area5">MembraneArea5:</label>
+                        <input type="number" id="uf4_area5" step="0.01" placeholder="psi">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(4)">
+                <span>UF5</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="uf5_area1">MembraneArea1:</label>
+                        <input type="number" id="uf5_area1" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf5_area2">MembraneArea2:</label>
+                        <input type="number" id="uf5_area2" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf5_area3">MembraneArea3:</label>
+                        <input type="number" id="uf5_area3" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf5_area4">MembraneArea4:</label>
+                        <input type="number" id="uf5_area4" step="0.01" placeholder="ppm">
+                    </div>
+                    <div class="form-group">
+                        <label for="uf5_area5">MembraneArea5:</label>
+                        <input type="number" id="uf5_area5" step="0.01" placeholder="ppm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Submit Data</button>
+    </form>
+
+    <p class="success" id="successMessage">Data submitted successfully!</p>
+    
+    <div class="sync-section">
+        <button id="syncButton" class="sync-btn">Sync Offline Data</button>
+        <p class="sync-status" id="syncStatus"></p>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Submitted Data</h2>
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="synced">Synced</button>
+        <button class="filter-btn" data-filter="pending">Pending Sync</button>
+    </div>
+    <div id="dataList" class="data-list"></div>
+</div>
+
+<script>
+
+    // Set current date and time as default values
+    function setDefaultDateTime() {
+    const now = new Date();
+    
+    // Format date as YYYY-MM-DD
+    const dateString = now.toISOString().split('T')[0];
+    document.getElementById('date-input').value = dateString;
+    
+    // Format time as HH:MM
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}`;
+    document.getElementById('time-input').value = timeString;
+}
+
+// Event listeners for input changes
+function setupInputListeners() {
+    const dateInput = document.getElementById('date-input');
+    const timeInput = document.getElementById('time-input');
+    
+    dateInput.addEventListener('change', function() {
+        console.log('Date selected:', this.value);
+    });
+    
+    timeInput.addEventListener('change', function() {
+        console.log('Time selected:', this.value);
+    });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    setDefaultDateTime();
+    initAccordion();
+    setupInputListeners();
+});
+
+
+    // Register Service Worker for offline functionality
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => console.log('Service Worker registered'))
+            .catch(error => console.log('Service Worker registration failed:', error));
+    }
+
+    // Accordion toggle function
+    function toggleAccordion(index) {
+        const headers = document.querySelectorAll('.accordion-header');
+        const contents = document.querySelectorAll('.accordion-content');
+        
+        headers[index].classList.toggle('active');
+        contents[index].classList.toggle('active');
+    }
+
+    // Check online/offline status
+    function updateOnlineStatus() {
+        const offlineIndicator = document.getElementById('offlineIndicator');
+        const syncButton = document.getElementById('syncButton');
+        
+        if (!navigator.onLine) {
+            offlineIndicator.classList.add('show');
+            syncButton.disabled = true;
+        } else {
+            offlineIndicator.classList.remove('show');
+            syncButton.disabled = false;
+        }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    // Display data list
+    function displayDataList(filter = 'all') {
+        const dataList = document.getElementById('dataList');
+        let submissions = JSON.parse(localStorage.getItem('ufSubmissions') || '[]');
+        
+        if (filter === 'synced') {
+            submissions = submissions.filter(item => item.synced);
+        } else if (filter === 'pending') {
+            submissions = submissions.filter(item => !item.synced);
+        }
+        
+        if (submissions.length === 0) {
+            dataList.innerHTML = '<div class="empty-state">No data available</div>';
+            return;
+        }
+        
+        dataList.innerHTML = submissions.map((item, index) => `
+            <div class="data-item ${item.synced ? 'synced' : 'pending'}">
+                <div class="data-item-header">
+                    <div class="data-item-name">Entry #${index + 1}</div>
+                    <span class="status-badge ${item.synced ? 'synced' : 'pending'}">
+                        ${item.synced ? '✓ Synced' : '⏳ Pending'}
+                    </span>
+                </div>
+                <div class="data-item-details">
+                    ${Object.keys(item).filter(key => key.startsWith('uf')).map(key => `
+                        <div class="data-field"><strong>${key}:</strong> ${item[key]}</div>
+                    `).join('')}
+                </div>
+                <div class="data-item-footer">
+                    <span>Submitted: ${new Date(item.timestamp).toLocaleString()}</span>
+                    <button class="delete-btn" onclick="deleteItem(${index})">Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Delete item
+    function deleteItem(index) {
+        if (confirm('Are you sure you want to delete this entry?')) {
+            let submissions = JSON.parse(localStorage.getItem('ufSubmissions') || '[]');
+            submissions.splice(index, 1);
+            localStorage.setItem('ufSubmissions', JSON.stringify(submissions));
+            displayDataList();
+        }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            displayDataList(this.dataset.filter);
+        });
+    });
+
+    // Sync offline data to server
+    async function syncOfflineData() {
+        const syncButton = document.getElementById('syncButton');
+        const syncStatus = document.getElementById('syncStatus');
+        
+        if (!navigator.onLine) {
+            syncStatus.textContent = 'Cannot sync while offline';
+            syncStatus.style.color = 'red';
+            return;
+        }
+        
+        let submissions = JSON.parse(localStorage.getItem('ufSubmissions') || '[]');
+        const pendingSubmissions = submissions.filter(item => !item.synced);
+        
+        if (pendingSubmissions.length === 0) {
+            syncStatus.textContent = 'No pending data to sync';
+            syncStatus.style.color = '#666';
+            return;
+        }
+        
+        syncButton.disabled = true;
+        syncStatus.textContent = `Syncing ${pendingSubmissions.length} items...`;
+        syncStatus.style.color = '#007bff';
+        
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pendingSubmissions)
+            });
+            
+            if (response.ok) {
+                submissions = submissions.map(item => ({
+                    ...item,
+                    synced: true,
+                    syncedAt: new Date().toISOString()
+                }));
+                localStorage.setItem('ufSubmissions', JSON.stringify(submissions));
+                
+                syncStatus.textContent = `Successfully synced ${pendingSubmissions.length} items!`;
+                syncStatus.style.color = '#28a745';
+                displayDataList();
+            } else {
+                throw new Error('Sync failed');
+            }
+        } catch (error) {
+            console.error('Sync error:', error);
+            syncStatus.textContent = 'Sync failed. Please try again.';
+            syncStatus.style.color = 'red';
+        } finally {
+            syncButton.disabled = false;
+            setTimeout(() => {
+                syncStatus.textContent = '';
+            }, 3000);
+        }
+    }
+
+    document.getElementById('syncButton').addEventListener('click', syncOfflineData);
+
+    window.addEventListener('online', () => {
+        setTimeout(() => {
+            syncOfflineData();
+        }, 1000);
+    });
+
+    // Form submission
+    document.getElementById('ufForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            timestamp: new Date().toISOString(),
+            synced: navigator.onLine
+        };
+        
+        // Collect all UF data
+        for (let i = 1; i <= 5; i++) {
+            for (let j = 1; j <= 5; j++) {
+                const value = document.getElementById(`uf${i}_area${j}`).value;
+                if (value) {
+                    formData[`uf${i}_area${j}`] = value;
+                }
+            }
+        }
+        
+        // Save to localStorage
+        let submissions = JSON.parse(localStorage.getItem('ufSubmissions') || '[]');
+        submissions.unshift(formData);
+        localStorage.setItem('ufSubmissions', JSON.stringify(submissions));
+        
+        if (navigator.onLine) {
+            syncOfflineData();
+        }
+        
+        document.getElementById('successMessage').style.display = 'block';
+        displayDataList();
+        
+        setTimeout(() => {
+            document.getElementById('ufForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+        }, 2000);
+    });
+
+    // Initial display
+    displayDataList();
+
+    </script>
+</body>
+</html>
